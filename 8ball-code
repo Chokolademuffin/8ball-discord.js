@@ -1,0 +1,53 @@
+const { MessageEmbed, Client, CommandInteraction } = require("discord.js");
+
+const answer = [
+  "Yes",
+  "No",
+  "Ask Again Later",
+  "Maybe",
+  "I wouldn't do that",
+  "DO IT",
+  "How dare you even ask me that question?",
+  "Of course",
+  "My sources says no",
+  "My sources says YES"
+];
+
+module.exports = {
+  name: "8ball",
+  allies: [],
+  description: "Ask the magic 8ball a question",
+  usage: "/8ball",
+  cooldown: 10,
+  userPermissions: "",
+  botPermissions: "",
+  ownerOnly: false,
+  toggleOff: false,
+  options: [
+    {
+      name: "question",
+      description: "You're question",
+      type: "STRING",
+      required: true,
+    },
+  ],
+  /**
+   * @param {CommandInteraction} interaction
+   * @param {Client} client
+   */
+
+  async execute(interaction, client) {
+    const question = interaction.options.getString("question");
+    if (question === "Is muffin gay", "is muffin gay", "is muffin gay?", "Is muffin gay?") {
+      answer === "Yes ofc he is gay, what did you think?"
+    };
+
+    const embed = new MessageEmbed()
+      .setColor("BLURPLE")
+      .setTitle("The magic 8ball")
+      .setDescription(`Question: ${question}. The magic 8balls answer: \n\`\`\`${answer[Math.floor(Math.random() * answer.length)]}\`\`\``)
+      .setFooter({ text: `Requested by ${interaction.user.tag}` }).setTimestamp();
+
+    await interaction.reply({ embeds: [embed] });
+  },
+};
